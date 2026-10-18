@@ -3,6 +3,7 @@ import { SECTORS_DATA } from '../data/sectorsData';
 import { 
   Building2, 
   GraduationCap, 
+  School,
   HeartHandshake, 
   Activity, 
   ShieldCheck, 
@@ -16,6 +17,7 @@ import {
 
 const ICONS_MAP = {
   GraduationCap,
+  School,
   HeartHandshake,
   Activity,
   ShieldCheck,

@@ -142,6 +142,16 @@ export default function LegalAndEvidence() {
               </p>
             </div>
           </div>
+
+          <div className="p-3.5 rounded-xl border border-slate-200 bg-white flex items-start gap-3">
+            <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+            <div>
+              <strong className="text-slate-900">Autonomía Universitaria y Régimen Especial (Constitución Art. 69 y Ley 30 de 1992):</strong>
+              <p className="text-slate-600 mt-0.5 leading-relaxed">
+                Las universidades públicas cuentan con personería jurídica, autonomía académica y administrativa para definir sus plantas docentes. La propia Circular 08 reconoce en sus considerandos que se aplica <em>«respetando los regímenes especiales y las competencias de cada autoridad»</em>, reservando a los Consejos Superiores la fijación de políticas sobre profesores de cátedra y proyectos de investigación.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

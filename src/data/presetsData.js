@@ -20,6 +20,16 @@ export const PRESETS_ENTIDADES = [
     contextoRiesgo: "El 80% de las horas cátedra se imparten mediante contratos de servicios. Sin excepciones, millones de cupos técnicos quedarían vacantes."
   },
   {
+    id: "universidades-publicas",
+    nombre: "Universidades Públicas (Sistema Universitario Estatal - SUE)",
+    tipo: "Educación Superior y Autonomía Universitaria",
+    contratosBienio: 34500,
+    presupuestoBienio: 1120000000000, // 1,12 billones COP
+    fuente: "Consolidado SUE, Ministerio de Educación y Ley 30 de 1992",
+    descripcion: "Docentes de cátedra, profesores ocasionales, jóvenes investigadores y apoyos de laboratorio en las 34 universidades públicas del país.",
+    contextoRiesgo: "Más del 65 % de los cursos universitarios dependen de docentes no pertenecientes a la planta de carrera. Además, la autonomía universitaria (art. 69 CP) genera un debate sobre el alcance de las directrices del DAPRE."
+  },
+  {
     id: "icbf",
     nombre: "Instituto Colombiano de Bienestar Familiar (ICBF)",
     tipo: "Protección Social y Familia",

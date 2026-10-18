@@ -1,16 +1,29 @@
 export const SECTORS_DATA = [
   {
-    id: "educacion-sena",
-    nombre: "Educación y Formación Técnica (SENA / MinEducación)",
+    id: "sena-formacion",
+    nombre: "Servicio Nacional de Aprendizaje (SENA) — Formación Técnica",
     icono: "GraduationCap",
-    dependenciaOps: "Crítica (>80 % de instructores)",
+    dependenciaOps: "Crítica (>80 % en 33 Regionales)",
     nivelRiesgo: "Crítico",
     color: "amber",
-    perfilAfectado: "Instructores técnicos y transversales en centros de formación, diseñadores curriculares, tutores virtuales y personal de soporte pedagógico.",
-    diagnosticoSectorial: "El SENA funciona estructuralmente con contratistas por horas para dictar formación titulada y complementaria. Aplicar un tope del 25 % sin ampliación de planta implicaría cancelar miles de cursos y fichas de formación en todo el país.",
-    desafioPrincipal: "Garantizar la oferta de formación profesional a más de 7 millones de aprendices cuando la planta de instructores de carrera es insuficiente.",
-    viaDeExcepcion: "Causal 2 (Servicios Esenciales de Educación) y Causal 5 (Proyectos de formación con recursos FIC o convenios de destinación específica).",
-    medidasMitigacion: "Concentración en ambientes virtuales masivos, fusión de grupos presenciales y solicitud urgente de ampliación de planta temporal autorizada por Función Pública y MinHacienda."
+    perfilAfectado: "Instructores técnicos y transversales en centros de formación, coordinadores de talleres, tutores de formación virtual y diseñadores curriculares.",
+    diagnosticoSectorial: "El SENA imparte más del 80 % de sus horas de formación profesional mediante instructores contratados por prestación de servicios (más de 32.000 contratos al año). Un recorte al 25 % sin sustitución de planta causaría la cancelación inmediata de miles de fichas técnicas y tecnólogos.",
+    desafioPrincipal: "Garantizar la continuidad de la formación a más de 7 millones de aprendices cuando la planta de carrera solo cubre una fracción mínima de la demanda nacional.",
+    viaDeExcepcion: "Causal 2 (Servicios Esenciales de Educación Técnica) y Causal 5 (Recursos FIC y convenios de formación especializada con destinación específica).",
+    medidasMitigacion: "Fortalecimiento de plataformas virtuales masivas, optimización de ambientes de aprendizaje presenciales y solicitud coordinada de creación de planta temporal de instructores."
+  },
+  {
+    id: "universidades-publicas",
+    nombre: "Universidades Públicas (Sistema Universitario Estatal - SUE)",
+    icono: "School",
+    dependenciaOps: "Muy Alta (>65 % en Docencia e Investigación)",
+    nivelRiesgo: "Crítico",
+    color: "violet",
+    perfilAfectado: "Profesores de cátedra, docentes ocasionales de término fijo, jóvenes investigadores de semilleros y técnicos de laboratorio.",
+    diagnosticoSectorial: "Las 34 universidades públicas del país atienden el pregrado y posgrado con un modelo intensivo de catedráticos y profesores no pertenecientes a la planta de carrera docente. Además, la autonomía universitaria (artículo 69 de la Constitución Política y Ley 30 de 1992) plantea un debate constitucional sobre la obligatoriedad directa de las circulares del DAPRE en entes universitarios autónomos.",
+    desafioPrincipal: "Preservar la calidad académica, el calendario semestral de pregrado y la ejecución de proyectos de investigación con recursos de regalías y MinCiencias.",
+    viaDeExcepcion: "Causal 1 (Amparo en la Autonomía Universitaria, art. 69 CP) y Causal 5 (Proyectos de investigación con recursos de MinCiencias, regalías o cooperación internacional).",
+    medidasMitigacion: "Articulación entre el Consejo Nacional de Educación Superior (CESU) y el Ministerio de Educación para formalización docente progresiva y unificación de criterios de gasto."
   },
   {
     id: "inclusion-icbf",

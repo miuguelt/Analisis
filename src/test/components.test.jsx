@@ -127,7 +127,8 @@ describe('Pruebas de Componentes React — Observatorio Circular 08 DAPRE', () =
     
     // Probar filtros 'Crítico', 'Alto', 'Medio', 'Todos'
     fireEvent.click(screen.getByRole('button', { name: 'Crítico' }));
-    expect(screen.getByText(/Educación y Formación Técnica \(SENA \/ MinEducación\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Servicio Nacional de Aprendizaje \(SENA\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Universidades Públicas \(Sistema Universitario Estatal/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Alto' }));
     expect(screen.getByText(/Salud y Vigilancia Sanitaria \(MinSalud \/ INVIMA \/ INS\)/i)).toBeInTheDocument();
