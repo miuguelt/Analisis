@@ -71,8 +71,8 @@ export const NORMA_INFO = {
       numeral: "8. Competencias y Responsabilidad",
       titulo: "Intangibilidad de las competencias legales y de control fiscal",
       textoLiteral: "La presente Circular constituye un lineamiento de coordinación y seguimiento de prioridades gubernamentales y no sustituye las competencias constitucionales y legales de nominación, ordenación del gasto, contratación, dirección sectorial, administración de plantas de personal ni control fiscal o disciplinario atribuidas a otras autoridades.",
-      contenido: "Aclara que la responsabilidad jurídica, penal, disciplinaria y fiscal de cada contrato o recorte recae exclusivamente en el ordenador del gasto de cada entidad, y preserva los regímenes constitucionales autónomos.",
-      impactoClave: "El ordenador del gasto responde ante Contraloría y Procuraduría tanto por excesos presupuestales como por parálisis del servicio."
+      contenido: "Aclara que la responsabilidad jurídica, penal, disciplinaria y fiscal de cada contrato o recorte recae exclusivamente en la autoridad ordenadora del gasto de cada entidad, y preserva los regímenes constitucionales autónomos.",
+      impactoClave: "La autoridad ordenadora del gasto responde ante Contraloría y Procuraduría tanto por excesos presupuestales como por parálisis del servicio."
     },
     {
       numeral: "9. Vigencia y Efectos",

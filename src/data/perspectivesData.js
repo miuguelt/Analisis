@@ -94,7 +94,7 @@ export const PERSPECTIVAS_ACTORES = [
   },
   {
     id: "gerentes-publicos",
-    actor: "3. Perspectiva de Directores de Entidades y Ordenadores del Gasto",
+    actor: "3. Perspectiva de Directores de Entidades y Autoridades de Ordenación del Gasto",
     subtitulo: "Ministros, directores de institutos descentralizados, secretarios generales y jefes de planeación",
     color: "amber",
     posturaCentral: "Enfrentan una encrucijada jurídica: el Numeral 4 les exige recortar el 75 % de OPS, pero el Numeral 8 les recuerda que siguen siendo responsables disciplinaria y fiscalmente si se paraliza el servicio público o se incumplen fallos judiciales.",
