@@ -89,11 +89,11 @@ export default function ReportModal({ isOpen, onClose, simData }) {
             </div>
           </div>
 
-          {/* Conclusiones y Recomendaciones para Ordenadores del Gasto */}
+          {/* Conclusiones y Recomendaciones para la Gestión Pública */}
           <div className="space-y-3 text-xs leading-relaxed">
             <h4 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
               <FileText className="w-4 h-4 text-emerald-600" />
-              Recomendaciones Estratégicas para Ordenadores del Gasto
+              Recomendaciones Estratégicas para Autoridades y Gestores del Gasto
             </h4>
 
             <div className="p-3.5 rounded-xl bg-slate-50 border space-y-2">

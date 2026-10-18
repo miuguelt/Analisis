@@ -68,7 +68,7 @@ export default function ExceptionEvaluator() {
             onChange={(e) => setDocEscrito(e.target.checked)}
             className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
           />
-          Consta en documento escrito motivado y suscrito por el ordenador del gasto.
+          Consta en documento escrito motivado y suscrito por la autoridad nominadora u ordenadora de la entidad.
         </label>
 
         <label className="flex items-center gap-2.5 text-xs text-slate-700 cursor-pointer">
