@@ -9,44 +9,67 @@ import PerspectivesDebate from './components/PerspectivesDebate';
 import LegalAndEvidence from './components/LegalAndEvidence';
 import ReportModal from './components/ReportModal';
 import { PRESETS_ENTIDADES } from './data/presetsData';
-import { calcularLineaBase } from './utils/calculations';
+import { calcularLineaBase, calcularTopeLNR } from './utils/calculations';
+
+export function construirSimDataDesdePreset(presetId) {
+  const preset = PRESETS_ENTIDADES.find((p) => p.id === presetId) || PRESETS_ENTIDADES[0];
+  const ops = calcularLineaBase(preset.contratosBienio, preset.presupuestoBienio, 25, 10);
+  const lnr = calcularTopeLNR(preset.cargosLNR, preset.cargosExcluidosLNR, 60);
+  return {
+    ...ops,
+    presetId: preset.id,
+    entidadNombre: preset.nombre,
+    lnrCargosTotales: lnr.cargosTotales,
+    lnrCargosExcluidos: lnr.cargosExcluidos,
+    lnrCupo: lnr.cupoMaximoProvisto,
+    lnrCongelados: lnr.cargosCongelados
+  };
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('norma');
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [simData, setSimData] = useState(() => construirSimDataDesdePreset('contraloria-nacional'));
 
-  // Datos de simulación para el reporte ejecutivo
-  const simData = calcularLineaBase(
-    PRESETS_ENTIDADES[0].contratosBienio,
-    PRESETS_ENTIDADES[0].presupuestoBienio,
-    25,
-    10
-  );
+  const handleSimulatePreset = (presetId) => {
+    setSimData(construirSimDataDesdePreset(presetId));
+    setActiveTab('simulador');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Header onOpenReport={() => setIsReportOpen(true)} />
-      <Navbar activeTab={activeTab} onSelectTab={setActiveTab} />
+      <div className={`flex-1 flex flex-col ${isReportOpen ? 'no-print' : ''}`}>
+        <Header onOpenReport={() => setIsReportOpen(true)} />
+        <Navbar activeTab={activeTab} onSelectTab={setActiveTab} />
 
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
-        {activeTab === 'norma' && <NormaBreakdown />}
-        {activeTab === 'simulador' && <Simulator />}
-        {activeTab === 'sectores' && <SectorAnalysis />}
-        {activeTab === 'social' && <SocialImpact />}
-        {activeTab === 'perspectivas' && <PerspectivesDebate />}
-        {activeTab === 'juridico' && <LegalAndEvidence />}
-      </main>
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
+          {activeTab === 'norma' && <NormaBreakdown />}
+          {activeTab === 'simulador' && (
+            <Simulator
+              initialPresetId={simData.presetId}
+              savedState={simData}
+              onSyncSimulation={setSimData}
+            />
+          )}
+          {activeTab === 'sectores' && (
+            <SectorAnalysis onSimulatePreset={handleSimulatePreset} />
+          )}
+          {activeTab === 'social' && <SocialImpact />}
+          {activeTab === 'perspectivas' && <PerspectivesDebate />}
+          {activeTab === 'juridico' && <LegalAndEvidence />}
+        </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-1">
-          <p className="font-semibold text-slate-700">
-            Observatorio Analítico sobre la Circular Externa No. 08 del 15 de octubre de 2026 — DAPRE
-          </p>
-          <p>
-            Desarrollado bajo el estándar DevBrain v8.10 en español de Colombia (`es-CO`). Análisis verificado con base en datos de la Contraloría General de la República y jurisprudencia constitucional.
-          </p>
-        </div>
-      </footer>
+        <footer className="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-1">
+            <p className="font-semibold text-slate-700">
+              Observatorio Analítico sobre la Circular Externa No. 08 del 15 de octubre de 2026 — DAPRE
+            </p>
+            <p>
+              Desarrollado bajo el estándar DevBrain v8.10 en español de Colombia (`es-CO`). Análisis verificado con base en el documento oficial del DAPRE, cifras de la Contraloría General de la República y jurisprudencia constitucional.
+            </p>
+          </div>
+        </footer>
+      </div>
 
       <ReportModal
         isOpen={isReportOpen}

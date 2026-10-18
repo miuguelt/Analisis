@@ -21,7 +21,7 @@ export default function SimulatorChart({ resultados, tope, excepcion }) {
 
         <div>
           <div className="flex justify-between text-xs text-slate-600 mb-1">
-            <span className="font-semibold text-emerald-700">Cupo Ordinario (25 %)</span>
+            <span className="font-semibold text-emerald-700">Cupo Ordinario ({tope} %)</span>
             <span>{formatearNumero(resultados.cupoContratos)} contratistas ({formatearCOP(resultados.cupoPresupuesto)})</span>
           </div>
           <div className="w-full bg-slate-100 h-6 rounded-full overflow-hidden">

@@ -6,15 +6,61 @@
   body {
     @apply bg-slate-50 text-slate-800 antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-size: clamp(0.875rem, 0.84rem + 0.18vw, 1.05rem);
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2.25rem);
+  }
+
+  h2 {
+    font-size: clamp(1.2rem, 1.05rem + 0.75vw, 1.75rem);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Soporte para pantallas grandes / salas (1920px+ y 2560px+) */
+@media (min-width: 1920px) {
+  .max-w-7xl {
+    max-width: 90rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .max-w-7xl {
+    max-width: 108rem;
   }
 }
 
 /* Clases de apoyo para impresiones y reportes ejecutivos */
 @media print {
+  body {
+    background: #ffffff !important;
+  }
   .no-print {
     display: none !important;
   }
   .print-only {
     display: block !important;
+  }
+  .print-modal-wrapper {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .print-modal-content {
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
   }
 }

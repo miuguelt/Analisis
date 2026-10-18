@@ -19,8 +19,10 @@ export function calcularLineaBase(
 ) {
   const contratos = Math.max(0, Number(totalContratos) || 0);
   const presupuesto = Math.max(0, Number(totalPresupuesto) || 0);
-  const tope = Math.min(100, Math.max(0, Number(porcentajeTope) || 25));
-  const excepcion = Math.min(100 - tope, Math.max(0, Number(porcentajeExcepcion) || 0));
+  const parsedTope = Number(porcentajeTope);
+  const tope = Math.min(100, Math.max(0, Number.isFinite(parsedTope) ? parsedTope : 25));
+  const parsedExcepcion = Number(porcentajeExcepcion);
+  const excepcion = Math.min(100 - tope, Math.max(0, Number.isFinite(parsedExcepcion) ? parsedExcepcion : 0));
 
   const cupoContratos = Math.round(contratos * (tope / 100));
   const recorteContratos = Math.max(0, contratos - cupoContratos);
@@ -32,6 +34,7 @@ export function calcularLineaBase(
   const presupuestoExcepcion = presupuesto * (excepcion / 100);
 
   const contratosEfectivos = cupoContratos + contratosExcepcion;
+  const recorteContratosEfectivo = Math.max(0, contratos - contratosEfectivos);
   const presupuestoEfectivo = cupoPresupuesto + presupuestoExcepcion;
   const ahorroNeto = Math.max(0, presupuesto - presupuestoEfectivo);
 
@@ -51,9 +54,76 @@ export function calcularLineaBase(
     contratosExcepcion,
     presupuestoExcepcion,
     contratosEfectivos,
+    recorteContratosEfectivo,
     presupuestoEfectivo,
     ahorroNeto,
     porcentajeReduccionEfectiva: Number(porcentajeReduccionEfectiva.toFixed(1))
+  };
+}
+
+/**
+ * Calcula el límite de ocupación del 60 % en empleos de Libre Nombramiento y Remoción (Numeral 2).
+ * @param {number} cargosTotales - Total de empleos de LNR previstos en la planta global
+ * @param {number} cargosExcluidos - Cargos de Ministro, Viceministro, Director/Subdirector y esenciales excluidos
+ * @param {number} porcentajeMaximo - Porcentaje máximo de ocupación permitido (60 % por defecto)
+ * @returns {object} Desglose de cargos provistos y congelados
+ */
+export function calcularTopeLNR(
+  cargosTotales = 0,
+  cargosExcluidos = 0,
+  porcentajeMaximo = 60
+) {
+  const total = Math.max(0, Number(cargosTotales) || 0);
+  const excluidos = Math.min(total, Math.max(0, Number(cargosExcluidos) || 0));
+  const parsedTope = Number(porcentajeMaximo);
+  const topePorcentaje = Math.min(100, Math.max(0, Number.isFinite(parsedTope) ? parsedTope : 60));
+
+  const baseCalculo = Math.max(0, total - excluidos);
+  const cupoMaximoProvisto = Math.round(baseCalculo * (topePorcentaje / 100));
+  const cargosCongelados = Math.max(0, baseCalculo - cupoMaximoProvisto);
+  const totalPermitidoEnPlanta = cupoMaximoProvisto + excluidos;
+  const porcentajeCongelado = baseCalculo > 0
+    ? Number((((baseCalculo - cupoMaximoProvisto) / baseCalculo) * 100).toFixed(1))
+    : 0;
+
+  return {
+    cargosTotales: total,
+    cargosExcluidos: excluidos,
+    baseCalculo,
+    topePorcentaje,
+    cupoMaximoProvisto,
+    cargosCongelados,
+    totalPermitidoEnPlanta,
+    porcentajeCongelado
+  };
+}
+
+/**
+ * Calcula las deducciones de seguridad social (IBC 40 %) y el ingreso líquido de un contratista OPS.
+ * @param {number} honorariosMensuales - Valor bruto mensual de honorarios en COP
+ * @returns {object} Desglose de IBC, salud, pensión, ARL e ingreso neto
+ */
+export function calcularLiquidacionContratista(honorariosMensuales = 0) {
+  const honorariosBrutos = Math.max(0, Number(honorariosMensuales) || 0);
+  const ibc = Math.round(honorariosBrutos * 0.4);
+  const aporteSalud = Math.round(ibc * 0.125);
+  const aportePension = Math.round(ibc * 0.16);
+  const aporteARL = Math.round(ibc * 0.00522);
+  const totalSeguridadSocial = aporteSalud + aportePension + aporteARL;
+  const ingresoLiquidoEstimado = Math.max(0, honorariosBrutos - totalSeguridadSocial);
+  const porcentajeCargaSeguridadSocial = honorariosBrutos > 0
+    ? Number(((totalSeguridadSocial / honorariosBrutos) * 100).toFixed(1))
+    : 0;
+
+  return {
+    honorariosBrutos,
+    ibc,
+    aporteSalud,
+    aportePension,
+    aporteARL,
+    totalSeguridadSocial,
+    ingresoLiquidoEstimado,
+    porcentajeCargaSeguridadSocial
   };
 }
 
@@ -92,7 +162,8 @@ export function formatearNumero(valor = 0) {
  * @returns {object} Estado, color y descripción de riesgo
  */
 export function evaluarNivelRiesgo(porcentajeReduccion = 75, dependencia = "Alta") {
-  if (porcentajeReduccion >= 65 && (dependencia.includes("Crítica") || dependencia.includes("Extrema"))) {
+  const depTexto = String(dependencia || "");
+  if (porcentajeReduccion >= 65 && (depTexto.includes("Crítica") || depTexto.includes("Extrema"))) {
     return {
       nivel: "Crítico",
       badgeClass: "bg-rose-100 text-rose-800 border-rose-200",

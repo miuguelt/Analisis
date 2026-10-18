@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SECTORS_DATA } from '../data/sectorsData';
+import EducationDeepDive from './EducationDeepDive';
 import { 
   Building2, 
   GraduationCap, 
@@ -10,9 +11,9 @@ import {
   Truck, 
   Trees, 
   Cpu, 
-  AlertTriangle,
   FileText,
-  Workflow
+  Workflow,
+  Calculator
 } from 'lucide-react';
 
 const ICONS_MAP = {
@@ -26,12 +27,12 @@ const ICONS_MAP = {
   Cpu,
 };
 
-export default function SectorAnalysis() {
+export default function SectorAnalysis({ onSimulatePreset }) {
   const [filterRiesgo, setFilterRiesgo] = useState('Todos');
 
   const filtered = SECTORS_DATA.filter((s) => {
     if (filterRiesgo === 'Todos') return true;
-    return s.nivelRiesgo === filterRiesgo;
+    return s.nivelRiesgo.includes(filterRiesgo);
   });
 
   return (
@@ -52,7 +53,6 @@ export default function SectorAnalysis() {
             </p>
           </div>
 
-          {/* Filtros de Riesgo */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold text-slate-500">Filtrar:</span>
             {['Todos', 'Crítico', 'Alto', 'Medio'].map((r) => (
@@ -71,16 +71,18 @@ export default function SectorAnalysis() {
           </div>
         </div>
 
-        {/* Cita institucional */}
         <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700 leading-relaxed">
           <strong>Mandato de la Circular (Numeral 6):</strong> Antes de tramitar cualquier contratación o excepción, las entidades están conminadas por ley a <em>«evaluar redistribución de cargas, movilidad interna, uso de capacidades existentes, simplificación de procesos, interoperabilidad y automatización»</em>.
         </div>
       </section>
 
+      {/* Módulo Especial de Profundización: SENA y Universidades Públicas */}
+      <EducationDeepDive onSimulatePreset={onSimulatePreset} />
+
       {/* Grid de Sectores Institucionales */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filtered.map((sector) => {
-          const IconComponent = ICONS_MAP[sector.icono] || Building2;
+          const IconComponent = ICONS_MAP[sector.icono];
           const isCritico = sector.nivelRiesgo === 'Crítico';
 
           return (
@@ -89,7 +91,6 @@ export default function SectorAnalysis() {
               className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
-                {/* Encabezado de la Tarjeta */}
                 <div className="flex items-start justify-between gap-3 pb-4 border-b border-slate-100">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-200">
@@ -118,7 +119,6 @@ export default function SectorAnalysis() {
                   </span>
                 </div>
 
-                {/* Perfiles Afectados */}
                 <div className="mt-4 text-xs text-slate-700">
                   <strong className="text-slate-900 block mb-1">Perfiles profesionales en riesgo:</strong>
                   <p className="text-slate-600 leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-100">
@@ -126,7 +126,6 @@ export default function SectorAnalysis() {
                   </p>
                 </div>
 
-                {/* Diagnóstico y Desafío */}
                 <div className="mt-4 space-y-2 text-xs">
                   <div>
                     <strong className="text-slate-900">Diagnóstico de terreno:</strong>
@@ -143,7 +142,6 @@ export default function SectorAnalysis() {
                 </div>
               </div>
 
-              {/* Vía de Excepción y Mitigación */}
               <div className="mt-5 pt-4 border-t border-slate-100 space-y-2 text-xs">
                 <div className="flex items-start gap-2 bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-100">
                   <FileText className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
@@ -160,6 +158,16 @@ export default function SectorAnalysis() {
                     <p className="text-slate-600 mt-0.5">{sector.medidasMitigacion}</p>
                   </div>
                 </div>
+
+                <div className="pt-1 flex justify-end">
+                  <button
+                    onClick={() => onSimulatePreset && onSimulatePreset(sector.presetId)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-emerald-800 bg-emerald-100/80 hover:bg-emerald-200/80 transition-all"
+                  >
+                    <Calculator className="w-3.5 h-3.5" />
+                    Simular en Calculadora
+                  </button>
+                </div>
               </div>
             </div>
           );
@@ -168,3 +176,4 @@ export default function SectorAnalysis() {
     </div>
   );
 }
+

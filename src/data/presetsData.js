@@ -2,61 +2,133 @@ export const PRESETS_ENTIDADES = [
   {
     id: "contraloria-nacional",
     nombre: "Consolidado Nacional (Cifras Contraloría 2026)",
-    tipo: "Nivel Nacional Consolidado",
+    tipo: "Nivel Nacional y Territorial Consolidado",
     contratosBienio: 501423,
-    presupuestoBienio: 22340000000000, // 22,34 billones COP
-    fuente: "Informe Oficial de Contraloría General de la República (Enero 2026)",
-    descripcion: "Universo total de contratos de prestación de servicios registrados en entidades del orden nacional y territorial en Colombia.",
-    contextoRiesgo: "Un recorte al 25% a nivel nacional afectaría a más de 376.000 contratistas y liberaría hasta $16,7 billones, pero crearía un choque operativo sin precedentes en la administración pública."
+    presupuestoBienio: 22340000000000,
+    cargosLNR: 18500,
+    cargosExcluidosLNR: 1200,
+    dependenciaNivel: "Crítica (>75 % de apoyo misional)",
+    fuente: "Informe Oficial de Contraloría General de la República (Enero 2026) citado en Red+ Noticias",
+    descripcion: "Universo total de contratos de prestación de servicios registrados en entidades del orden nacional y territorial en Colombia con corte a enero de 2026.",
+    contextoRiesgo: "Un recorte al 25 % a escala nacional afectaría a más de 376.000 contratistas y liberaría hasta $ 16,75 billones, pero provocaría un choque operativo sin precedentes si no se aplican excepciones en sectores esenciales."
   },
   {
     id: "sena",
     nombre: "Servicio Nacional de Aprendizaje (SENA)",
-    tipo: "Entidad de Formación y Empleo",
+    tipo: "Formación Profesional Integral (33 Regionales y 118 Centros)",
     contratosBienio: 32000,
-    presupuestoBienio: 880000000000, // 880 mil millones COP
-    fuente: "Reportes SIA Observa y ejecución presupuestal institucional",
-    descripcion: "Cuerpo de instructores de formación técnica, tecnólogos, coordinadores de talleres y tutores virtuales en las 33 regionales.",
-    contextoRiesgo: "El 80% de las horas cátedra se imparten mediante contratos de servicios. Sin excepciones, millones de cupos técnicos quedarían vacantes."
+    presupuestoBienio: 880000000000,
+    cargosLNR: 420,
+    cargosExcluidosLNR: 38,
+    dependenciaNivel: "Crítica (80 % de horas de formación en Regionales)",
+    fuente: "Banco de Instructores APE, reportes SIA Observa y ejecución presupuestal SENA",
+    descripcion: "Cuerpo de instructores de formación titulada (técnicos y tecnólogos), formación complementaria, dinamizadores SENNOVA, evaluadores de competencias laborales y tutores virtuales.",
+    contextoRiesgo: "Cerca del 80 % de las fichas de formación en los 118 centros regionales dependen de instructores contratistas (Ley 80 / Decreto 249 de 2004). Sin aplicar las causales 2 y 5 (servicio esencial de educación y recursos parafiscales/FIC), millones de cupos quedarían suspendidos."
   },
   {
     id: "universidades-publicas",
     nombre: "Universidades Públicas (Sistema Universitario Estatal - SUE)",
-    tipo: "Educación Superior y Autonomía Universitaria",
+    tipo: "Educación Superior (34 Entes Universitarios Autónomos)",
     contratosBienio: 34500,
-    presupuestoBienio: 1120000000000, // 1,12 billones COP
-    fuente: "Consolidado SUE, Ministerio de Educación y Ley 30 de 1992",
-    descripcion: "Docentes de cátedra, profesores ocasionales, jóvenes investigadores y apoyos de laboratorio en las 34 universidades públicas del país.",
-    contextoRiesgo: "Más del 65 % de los cursos universitarios dependen de docentes no pertenecientes a la planta de carrera. Además, la autonomía universitaria (art. 69 CP) genera un debate sobre el alcance de las directrices del DAPRE."
+    presupuestoBienio: 1120000000000,
+    cargosLNR: 980,
+    cargosExcluidosLNR: 140,
+    dependenciaNivel: "Crítica (>65 % en docencia de cátedra, ocasionales e investigación)",
+    fuente: "Consolidado Sistema Universitario Estatal (SUE), SNIES y Ley 30 de 1992",
+    descripcion: "Profesores de cátedra (art. 73 Ley 30/92), docentes ocasionales (art. 74), jóvenes investigadores de semilleros, laboratoristas y personal de extensión en las 34 universidades públicas.",
+    contextoRiesgo: "Más del 65 % de la oferta académica universitaria recae en docentes no pertenecientes a la carrera profesoral. Aunque las universidades gozan de autonomía constitucional (art. 69 CP y Sentencia C-220/97), enfrentan fuerte presión financiera en transferencias de la Nación."
   },
   {
     id: "icbf",
     nombre: "Instituto Colombiano de Bienestar Familiar (ICBF)",
-    tipo: "Protección Social y Familia",
+    tipo: "Protección Integral de Niñez y Familia",
     contratosBienio: 24500,
-    presupuestoBienio: 640000000000, // 640 mil millones COP
-    fuente: "Boletín de gestión del talento humano ICBF",
-    descripcion: "Equipos psicosociales (psicólogos, pedagogos y trabajadores sociales) en defensorías de familia y centros zonales.",
-    contextoRiesgo: "Atención directa a niños en condición de vulnerabilidad y seguimiento a casos de restablecimiento de derechos."
+    presupuestoBienio: 640000000000,
+    cargosLNR: 340,
+    cargosExcluidosLNR: 35,
+    dependenciaNivel: "Extrema (>75 % en Defensorías de Familia y Centros Zonales)",
+    fuente: "Informes de gestión de talento humano ICBF y SECOP II",
+    descripcion: "Equipos técnicos interdisciplinarios (psicólogos, trabajadores sociales y nutricionistas) en defensorías de familia, centros zonales y supervisión de primera infancia.",
+    contextoRiesgo: "La atención de procesos administrativos de restablecimiento de derechos (PARD) de niños, niñas y adolescentes constituye un derecho fundamental prevalente (art. 44 CP) que exige invocar excepción inmediata."
+  },
+  {
+    id: "minhacienda",
+    nombre: "Ministerio de Hacienda y Crédito Público (y Sector Hacienda)",
+    tipo: "Cabeza de Sector Económico y Fiscal",
+    contratosBienio: 3400,
+    presupuestoBienio: 145000000000,
+    cargosLNR: 290,
+    cargosExcluidosLNR: 28,
+    dependenciaNivel: "Alta (Soporte SIIF Nación, crédito público y defensa tributaria)",
+    fuente: "Plan Anual de Adquisiciones y reportes de austeridad Sector Hacienda",
+    descripcion: "Especialistas en programación macroeconómica, ingenieros de soporte del SIIF Nación, analistas de crédito público, estructuradores financieros y abogados tributaristas.",
+    contextoRiesgo: "Como garante de la Regla Fiscal, Hacienda debe liderar con el ejemplo el recorte del 75 %, pero sin comprometer la operación de plataformas críticas como el SIIF ni los litigios de la Nación."
   },
   {
     id: "invima",
     nombre: "Instituto Nacional de Vigilancia de Medicamentos (INVIMA)",
-    tipo: "Vigilancia Sanitaria y Salud Pública",
+    tipo: "Autoridad Sanitaria y Salud Pública",
     contratosBienio: 3800,
-    presupuestoBienio: 98000000000, // 98 mil millones COP
-    fuente: "Plan Estratégico Institucional y requerimientos del MinSalud",
-    descripcion: "Evaluadores de expedientes farmacológicos, técnicos de inspección en puertos y analistas de registros sanitarios.",
-    contextoRiesgo: "El retraso en autorizaciones sanitarias podría impactar el abastecimiento de medicamentos críticos en Colombia."
+    presupuestoBienio: 98000000000,
+    cargosLNR: 120,
+    cargosExcluidosLNR: 15,
+    dependenciaNivel: "Crítica (Evaluación farmacológica e inspección portuaria)",
+    fuente: "Plan Estratégico Institucional INVIMA y alertas de MinSalud",
+    descripcion: "Químicos farmacéuticos evaluadores de registros sanitarios, médicos veterinarios e inspectores de inocuidad en puertos, aeropuertos y pasos fronterizos.",
+    contextoRiesgo: "El represamiento histórico de registros sanitarios se agravaría con un recorte sin sustitución, poniendo en riesgo el abastecimiento de medicamentos vitales y el comercio exterior de alimentos."
   },
   {
-    id: "ministerio-tipo",
-    nombre: "Ministerio Promedio del Nivel Central",
-    tipo: "Gobierno Central",
-    contratosBienio: 1250,
-    presupuestoBienio: 42000000000, // 42 mil millones COP
-    fuente: "Línea base representativa según Circular 08 DAPRE",
-    descripcion: "Estructura central con dependencias de contratación, planeación, oficinas jurídicas, sistemas y atención al ciudadano.",
-    contextoRiesgo: "Reducción a 312 contratistas obliga a trasladar cargas administrativas a los funcionarios de carrera y directivos de planta."
+    id: "unp-seguridad",
+    nombre: "Unidad Nacional de Protección y Sector Seguridad (UNP / Migración)",
+    tipo: "Seguridad, Derechos Humanos y Control Fronterizo",
+    contratosBienio: 6200,
+    presupuestoBienio: 195000000000,
+    cargosLNR: 180,
+    cargosExcluidosLNR: 22,
+    dependenciaNivel: "Alta (60 % en estudios de nivel de riesgo y control migratorio)",
+    fuente: "Informes de gestión UNP, Migración Colombia y órdenes de medidas cautelares",
+    descripcion: "Analistas de evaluación de riesgo para líderes sociales y periodistas, enlaces regionales de derechos humanos y apoyo en puestos de control migratorio.",
+    contextoRiesgo: "Un recorte sin excepción paralizaría la valoración oportuna de amenazas contra líderes sociales y firmantes de paz, comprometiendo la responsabilidad internacional del Estado."
+  },
+  {
+    id: "invias-infraestructura",
+    nombre: "Sector Transporte e Infraestructura (INVIAS / ANI / Aerocivil)",
+    tipo: "Obra Pública, Concesiones y Conectividad Vial",
+    contratosBienio: 5400,
+    presupuestoBienio: 182000000000,
+    cargosLNR: 210,
+    cargosExcluidosLNR: 26,
+    dependenciaNivel: "Alta (60 % en gestión predial, social, ambiental e interventoría)",
+    fuente: "Planes Anuales de Adquisiciones INVIAS y Agencia Nacional de Infraestructura (ANI)",
+    descripcion: "Ingenieros civiles, especialistas en adquisición predial, gestores de consulta previa y supervisores de corredores viales y vías terciarias.",
+    contextoRiesgo: "Las demoras en liberación de predios y licenciamiento ambiental detendrían cronogramas de inversión financiada con vigencias futuras y banca multilateral."
+  },
+  {
+    id: "ant-ambiente",
+    nombre: "Sector Tierras y Ambiente (ANT / Parques Nacionales / ANLA)",
+    tipo: "Reforma Rural Integral y Licenciamiento Ambiental",
+    contratosBienio: 7800,
+    presupuestoBienio: 230000000000,
+    cargosLNR: 165,
+    cargosExcluidosLNR: 20,
+    dependenciaNivel: "Crítica (>70 % en brigadas rurales de barrido predial y guardaparques)",
+    fuente: "Informes de ejecución Agencia Nacional de Tierras (ANT), Parques Nacionales y ANLA",
+    descripcion: "Ingenieros catastrales, topógrafos, agrónomos de formalización de tierras, guardaparques y biólogos evaluadores de estudios de impacto ambiental.",
+    contextoRiesgo: "El trabajo de campo en zonas rurales dispersas y áreas protegidas recae mayoritariamente en brigadas por OPS; su recorte frenaría metas del Acuerdo de Paz y control de deforestación."
+  },
+  {
+    id: "ejemplo-redmas",
+    nombre: "Caso Pedagógico Red+ Noticias (Ministerio con 100 OPS)",
+    tipo: "Ejemplo Ilustrativo Oficial en Prensa",
+    contratosBienio: 100,
+    presupuestoBienio: 1000000000,
+    cargosLNR: 50,
+    cargosExcluidosLNR: 5,
+    dependenciaNivel: "Moderada (Estructura administrativa tipo)",
+    fuente: "Ejemplo práctico explicado en el artículo de Red+ Noticias (15 de octubre de 2026)",
+    descripcion: "Entidad ministerial tipo que durante el bienio 2025-2026 celebró 100 contratos de prestación de servicios con un presupuesto acumulado de $ 1.000 millones.",
+    contextoRiesgo: "Bajo la regla estricta del 25 % sin excepciones, desde el 1.° de enero de 2027 solo podrá contratar máximo 25 personas o $ 250 millones, suprimiendo 75 contratos y ahorrando $ 750 millones."
   }
 ];
+
+

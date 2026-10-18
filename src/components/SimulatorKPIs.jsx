@@ -7,7 +7,7 @@ export default function SimulatorKPIs({ resultados, excepcion }) {
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
-          <span>Cupo Máximo (25 %)</span>
+          <span>Cupo Máximo ({resultados.topeReglamentario} %)</span>
           <Users className="w-4 h-4 text-emerald-600" />
         </div>
         <div className="text-2xl font-black text-slate-900">
@@ -20,7 +20,7 @@ export default function SimulatorKPIs({ resultados, excepcion }) {
 
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
         <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
-          <span>Recorte Proyectado (75 %)</span>
+          <span>Recorte Proyectado ({100 - resultados.topeReglamentario} %)</span>
           <TrendingDown className="w-4 h-4 text-rose-600" />
         </div>
         <div className="text-2xl font-black text-rose-600">

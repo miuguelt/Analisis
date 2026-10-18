@@ -5,8 +5,7 @@ import {
   ExternalLink, 
   Scale, 
   Building, 
-  CheckCircle2, 
-  AlertCircle 
+  CheckCircle2
 } from 'lucide-react';
 
 export default function LegalAndEvidence() {
@@ -34,26 +33,36 @@ export default function LegalAndEvidence() {
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
             <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
               <FileText className="w-4 h-4 text-emerald-600" />
-              Documento Oficial Analizado (Local)
+              Documento Oficial Analizado (Repositorio Local)
             </div>
-            <p className="text-xs text-slate-700 leading-relaxed font-mono">
+            <p className="text-xs text-slate-700 leading-relaxed font-mono font-bold">
               CIRCULAR INTERNA No. 08 DE 2026.pdf
             </p>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Expedida formalmente como <strong>Circular Externa No. 08</strong> del 15 de octubre de 2026 por el Director del DAPRE. Consta de 4 folios suscritos por la Dirección y Subdirección General.
+              Expedida formalmente como <strong>Circular Externa No. 08</strong> del 15 de octubre de 2026 (4 folios, 9 numerales). Suscrita por <strong>Carlos Andrés Ríos Puerta</strong> (Director del DAPRE), proyectada/revisada por <strong>Mateo Duque Giraldo</strong> y aprobada por <strong>Rosalín Orozco Becerra</strong> (Subdirectora General).
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
-              <ExternalLink className="w-4 h-4 text-emerald-600" />
-              Noticia de Prensa Confirmada
+            <div className="flex items-center justify-between gap-2 text-slate-900 font-bold text-xs">
+              <span className="flex items-center gap-2">
+                <ExternalLink className="w-4 h-4 text-emerald-600" />
+                Noticia de Prensa Verificada
+              </span>
+              <a
+                href="https://redmas.com.co/economia/gobierno-de-la-espriella-hace-oficial-el-recorte-para-los-colombianos-con-contrato-de-prestacion-de-servicios-notifica-cambio-20261015-0043.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-700 underline hover:text-emerald-900"
+              >
+                Abrir enlace original
+              </a>
             </div>
             <p className="text-xs text-slate-700 leading-relaxed font-semibold">
-              Red+ Noticias (15 de octubre de 2026)
+              Red+ Noticias — Por Sebastián David García Castro (15 de octubre de 2026)
             </p>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Confirma la notificación oficial a todos los ministerios y departamentos administrativos del recorte al 25% y la cifra oficial de 501.423 contratos reportados por la Contraloría General.
+              Documenta la notificación oficial a ministerios y departamentos administrativos del tope del 25 % desde el 1.° de enero de 2027, expone el ejemplo práctico (100 contratistas y $ 1.000 millones reducidos a 25 contratos y $ 250 millones) y cita el censo de la Contraloría General (501.423 contratos por $ 22,34 billones a enero de 2026).
             </p>
           </div>
         </div>
@@ -63,7 +72,7 @@ export default function LegalAndEvidence() {
       <section className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
         <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
           <Scale className="w-5 h-5 text-emerald-600" />
-          La Jurisprudencia Constitucional sobre el «Contrato Realidad»
+          Jurisprudencia Constitucional sobre «Contrato Realidad», SENA y Universidades Públicas
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -75,13 +84,13 @@ export default function LegalAndEvidence() {
               <span className="text-xs text-slate-500">Corte Constitucional</span>
             </div>
             <h4 className="text-sm font-bold text-slate-900">
-              Unificación sobre la relación laboral oculta en el Estado
+              Primacía de la realidad sobre las formas y estabilidad ocupacional
             </h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              La Sala Plena estableció que cuando una persona vinculada por prestación de servicios cumple un horario, recibe órdenes directas y ejerce funciones permanentes de la entidad, opera el principio constitucional de <strong>primacía de la realidad sobre las formas</strong> (art. 53 CP). El Estado tiene la obligación de responder por prestaciones sociales y formalizar las plantas.
+              Cuando un contratista de prestación de servicios cumple horario, recibe órdenes subordinadas y desarrolla funciones permanentes de la entidad, se configura una relación laboral oculta amparada por el artículo 53 de la Constitución.
             </p>
             <div className="text-[11px] text-emerald-900 bg-emerald-50 p-2.5 rounded-lg border border-emerald-100">
-              <strong>Tensión con la Circular:</strong> Reducir el 75 % sin formalización puede detonar miles de demandas laborales por contrato realidad contra la Nación.
+              <strong>Tensión con la Circular:</strong> Desvincular al 75 % de contratistas antiguos sin formalización puede detonar miles de litigios de contrato realidad.
             </div>
           </div>
 
@@ -93,13 +102,49 @@ export default function LegalAndEvidence() {
               <span className="text-xs text-slate-500">Corte Constitucional</span>
             </div>
             <h4 className="text-sm font-bold text-slate-900">
-              Prohibición de desnaturalización de plantas de personal
+              Prohibición de plantas paralelas y protección de funciones misionales
             </h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Declaró inexequible el uso indiscriminado de contratos de prestación de servicios para cubrir funciones misionales permanentes. Reiteró que el ingreso al servicio público debe ser por concurso de méritos (art. 125 CP) y que las entidades no pueden crear «plantas paralelas».
+              Prohibió celebrar contratos de prestación de servicios para el ejercicio de funciones de carácter permanente en la administración pública, fijando cinco criterios (funcional, igualdad, temporalidad, excepcionalidad y subordinación).
             </p>
             <div className="text-[11px] text-indigo-900 bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
-              <strong>Coincidencia con la Circular:</strong> El objetivo de austeridad del Gobierno se apoya en esta doctrina para suprimir las nóminas paralelas espurias.
+              <strong>Doble lectura:</strong> Respalda eliminar nóminas paralelas clientelistas, pero exige que las labores permanentes (como instructores del SENA) pasen a planta formal.
+            </div>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-violet-800 bg-violet-100/70 px-2.5 py-0.5 rounded">
+                Sentencia C-220 de 1997 y C-006 de 1996
+              </span>
+              <span className="text-xs text-slate-500">Corte Constitucional</span>
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">
+              Autonomía de las Universidades Públicas y Régimen Docente Ley 30
+            </h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              La Corte precisó que las universidades estatales son entes autónomos constitucionales (art. 69 CP) que no integran la Rama Ejecutiva ni están sujetas a tutela administrativa de los ministerios, y reguló el estatus especial de los profesores ocasionales y de hora cátedra (arts. 73 y 74 Ley 30 de 1992).
+            </p>
+            <div className="text-[11px] text-violet-900 bg-violet-50 p-2.5 rounded-lg border border-violet-100">
+              <strong>Efecto frente a la Circular 08:</strong> Fundamenta por qué el DAPRE debe respetar la autonomía de los Consejos Superiores Universitarios (Considerando 4 y Numeral 8).
+            </div>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-amber-800 bg-amber-100/70 px-2.5 py-0.5 rounded">
+                Unificación Consejo de Estado (2021)
+              </span>
+              <span className="text-xs text-slate-500">Sección Segunda</span>
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">
+              Solución de continuidad y límite temporal de las OPS
+            </h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Unificó las reglas sobre el término estrictamente indispensable de los contratos de prestación de servicios y el cómputo de 30 días hábiles de interrupción entre contratos sucesivos para determinar la existencia de relación laboral continuada.
+            </p>
+            <div className="text-[11px] text-amber-900 bg-amber-50 p-2.5 rounded-lg border border-amber-100">
+              <strong>Relevancia en 2027:</strong> Guía obligatoria para las oficinas jurídicas al auditar la línea base 2025-2026 ordenada en el Numeral 4.
             </div>
           </div>
         </div>
@@ -116,9 +161,9 @@ export default function LegalAndEvidence() {
           <div className="p-3.5 rounded-xl border border-slate-200 bg-white flex items-start gap-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-900">Constitución Política de Colombia (Artículos 53, 125 y 209):</strong>
+              <strong className="text-slate-900">Constitución Política de Colombia (Artículos 53, 54, 67, 69, 125 y 209):</strong>
               <p className="text-slate-600 mt-0.5 leading-relaxed">
-                Establecen la carrera administrativa por mérito, los principios de austeridad y celeridad de la función pública, y la protección especial a los derechos de los trabajadores.
+                Consagran la protección al trabajo, el deber del Estado de ofrecer formación profesional y técnica (SENA), la autonomía universitaria, el mérito en la carrera administrativa y los principios de eficacia y economía de la función pública.
               </p>
             </div>
           </div>
@@ -126,9 +171,9 @@ export default function LegalAndEvidence() {
           <div className="p-3.5 rounded-xl border border-slate-200 bg-white flex items-start gap-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-900">Estatuto General de Contratación Pública (Ley 80 de 1993, Art. 32):</strong>
+              <strong className="text-slate-900">Ley 80 de 1993 (Art. 32 Num. 3), Ley 30 de 1992 y Ley 119 de 1994:</strong>
               <p className="text-slate-600 mt-0.5 leading-relaxed">
-                Define taxativamente que los contratos de prestación de servicios solo se celebran con personas naturales para desarrollar actividades relacionadas con la administración cuando no puedan realizarse con personal de planta o requieran conocimientos especializados.
+                Definen el contrato de prestación de servicios estatal, el régimen autónomo de las universidades públicas (profesores de cátedra y ocasionales) y la misión del SENA financiada con recursos parafiscales de destinación específica.
               </p>
             </div>
           </div>
@@ -136,19 +181,9 @@ export default function LegalAndEvidence() {
           <div className="p-3.5 rounded-xl border border-slate-200 bg-white flex items-start gap-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-900">Decreto 2647 de 2022 y Decreto 618 de 2026:</strong>
+              <strong className="text-slate-900">Ley 2155 de 2021 (Art. 19), Decreto 2647 de 2022 y Decreto 618 de 2026:</strong>
               <p className="text-slate-600 mt-0.5 leading-relaxed">
-                Facultan al DAPRE para coordinar prioridades gubernamentales y establecen la obligación de planes internos de austeridad del gasto con seguimiento semestral y trimestral.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-3.5 rounded-xl border border-slate-200 bg-white flex items-start gap-3">
-            <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-slate-900">Autonomía Universitaria y Régimen Especial (Constitución Art. 69 y Ley 30 de 1992):</strong>
-              <p className="text-slate-600 mt-0.5 leading-relaxed">
-                Las universidades públicas cuentan con personería jurídica, autonomía académica y administrativa para definir sus plantas docentes. La propia Circular 08 reconoce en sus considerandos que se aplica <em>«respetando los regímenes especiales y las competencias de cada autoridad»</em>, reservando a los Consejos Superiores la fijación de políticas sobre profesores de cátedra y proyectos de investigación.
+                Habilitan las facultades de coordinación del DAPRE y los planes semestrales y trimestrales de austeridad del gasto de funcionamiento en la Rama Ejecutiva.
               </p>
             </div>
           </div>
@@ -157,3 +192,4 @@ export default function LegalAndEvidence() {
     </div>
   );
 }
+

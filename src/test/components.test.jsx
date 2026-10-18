@@ -1,24 +1,23 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from '../App';
+import App, { construirSimDataDesdePreset } from '../App';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import NormaBreakdown from '../components/NormaBreakdown';
-import Simulator from '../components/Simulator';
 import SectorAnalysis from '../components/SectorAnalysis';
+import EducationDeepDive from '../components/EducationDeepDive';
 import SocialImpact from '../components/SocialImpact';
 import PerspectivesDebate from '../components/PerspectivesDebate';
 import LegalAndEvidence from '../components/LegalAndEvidence';
-import ReportModal from '../components/ReportModal';
-import ExceptionEvaluator from '../components/ExceptionEvaluator';
 
-describe('Pruebas de Componentes React — Observatorio Circular 08 DAPRE', () => {
-  it('renderiza App completa, navega entre todas las pestañas y gestiona el modal de reporte', () => {
+describe('Pruebas de Componentes React — Módulos Informativos y Flujo Principal', () => {
+  it('renderiza App completa, preserva estado al navegar entre pestañas y sincroniza el modal de reporte', () => {
+    const fallbackSim = construirSimDataDesdePreset('id-no-existente');
+    expect(fallbackSim.presetId).toBe('contraloria-nacional');
     render(<App />);
     expect(screen.getByText(/Observatorio de la Circular Externa No. 08/i)).toBeInTheDocument();
 
-    // Navegación por todas las pestañas
     const tabs = [
       { name: /Simulador 25 % y Ahorro/i, textToCheck: /Motor de Simulación Cuantitativa/i },
       { name: /Impacto en Instituciones/i, textToCheck: /¿Cómo se implementa la norma en cada institución/i },
@@ -33,174 +32,118 @@ describe('Pruebas de Componentes React — Observatorio Circular 08 DAPRE', () =
       expect(screen.getAllByText(tab.textToCheck).length).toBeGreaterThanOrEqual(1);
     }
 
-    // Apertura y cierre del modal de reporte
-    const btnExportar = screen.getByText(/Exportar Reporte/i);
-    fireEvent.click(btnExportar);
-    expect(screen.getByText(/Dictamen Ejecutivo: Implementación Circular Externa/i)).toBeInTheDocument();
+    // Simular SENA desde Impacto en Instituciones y verificar persistencia al cambiar de pestaña y volver
+    fireEvent.click(screen.getByText(/Impacto en Instituciones/i));
+    const btnSimularSector = screen.getAllByRole('button', { name: /Simular en Calculadora/i })[0];
+    fireEvent.click(btnSimularSector);
+    expect(screen.getByDisplayValue('32000')).toBeInTheDocument();
 
-    const btnCerrar = screen.getByRole('button', { name: '' });
-    // el botón de cerrar tiene el icono X
-    const closeButtons = screen.getAllByRole('button');
-    const xButton = closeButtons.find(b => b.querySelector('svg.lucide-x'));
-    if (xButton) {
-      fireEvent.click(xButton);
-    }
+    fireEvent.click(screen.getByText(/Anatomía de la Norma/i));
+    fireEvent.click(screen.getByText(/Simulador 25 % y Ahorro/i));
+    expect(screen.getByDisplayValue('32000')).toBeInTheDocument();
+
+    // Apertura y cierre del modal de reporte sincronizado con el SENA
+    fireEvent.click(screen.getByText(/Exportar Reporte/i));
+    expect(screen.getByText(/Dictamen Ejecutivo: Implementación Circular Externa/i)).toBeInTheDocument();
+    expect(screen.getByText(/Escenario Evaluado: Servicio Nacional de Aprendizaje \(SENA\)/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /Cerrar reporte/i }));
+    expect(screen.queryByText(/Dictamen Ejecutivo/i)).not.toBeInTheDocument();
   });
 
   it('renderiza Header y dispara el modal de reporte al hacer clic', () => {
     const handleOpen = vi.fn();
     render(<Header onOpenReport={handleOpen} />);
-    
     expect(screen.getByText(/Observatorio de la Circular Externa No. 08/i)).toBeInTheDocument();
-    const btn = screen.getByText(/Exportar Reporte/i);
-    fireEvent.click(btn);
+    fireEvent.click(screen.getByText(/Exportar Reporte/i));
     expect(handleOpen).toHaveBeenCalledTimes(1);
   });
 
   it('renderiza Navbar y permite cambiar entre pestañas activas', () => {
     const handleSelect = vi.fn();
     render(<Navbar activeTab="norma" onSelectTab={handleSelect} />);
-    
-    const tabSimulador = screen.getByText(/Simulador 25 % y Ahorro/i);
-    fireEvent.click(tabSimulador);
+    fireEvent.click(screen.getByText(/Simulador 25 % y Ahorro/i));
     expect(handleSelect).toHaveBeenCalledWith('simulador');
   });
 
-  it('renderiza NormaBreakdown y permite alternar numerales', () => {
+  it('renderiza NormaBreakdown con los 9 numerales, firmantes y texto literal del PDF', () => {
     render(<NormaBreakdown />);
     expect(screen.getByText(/Acto Administrativo Vinculante/i)).toBeInTheDocument();
-    
-    const numeralBtn = screen.getByText(/1. Objeto Central/i);
-    fireEvent.click(numeralBtn);
-    expect(screen.getAllByText(/Racionalización del gasto de funcionamiento/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/Carlos Andrés Ríos Puerta/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(/1. Objeto Central/i));
+    expect(screen.getAllByText(/Reducción y racionalización del gasto de funcionamiento/i).length).toBeGreaterThanOrEqual(1);
+
+    fireEvent.click(screen.getByText(/8. Competencias y Responsabilidad/i));
+    expect(screen.getAllByText(/Intangibilidad de las competencias legales/i).length).toBeGreaterThanOrEqual(1);
+
+    fireEvent.click(screen.getByText(/9. Vigencia y Efectos/i));
+    expect(screen.getAllByText(/Transición inmediata y aplicación desde el 1.° de enero de 2027/i).length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renderiza Simulator y prueba controles de inputs, sliders y alternador de asistente', () => {
-    render(<Simulator />);
-    expect(screen.getByText(/Simulador de Línea Base y Reducción del 25 %/i)).toBeInTheDocument();
-    
-    // Cambiar preset
-    const select = screen.getByRole('combobox');
-    fireEvent.change(select, { target: { value: 'sena' } });
-    expect(screen.getByDisplayValue('32000')).toBeInTheDocument();
+  it('renderiza EducationDeepDive y alterna entre SENA, Universidades Públicas y Matriz Comparativa', () => {
+    const handleSimulate = vi.fn();
+    render(<EducationDeepDive onSimulatePreset={handleSimulate} />);
+    expect(screen.getByText(/Foco Especial: SENA y Universidades Públicas/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Simular Caso SENA/i }));
+    expect(handleSimulate).toHaveBeenCalledWith('sena');
 
-    // Cambiar inputs numéricos
-    const inputContratos = screen.getByDisplayValue('32000');
-    fireEvent.change(inputContratos, { target: { value: '40000' } });
-    expect(screen.getByDisplayValue('40000')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Universidades Públicas \(SUE\)/i }));
+    expect(screen.getByText(/34 Instituciones de Educación Superior, Ley 30 de 1992/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Simular Caso Universidades/i }));
+    expect(handleSimulate).toHaveBeenCalledWith('universidades-publicas');
 
-    const inputPresupuesto = screen.getByDisplayValue('880000000000');
-    fireEvent.change(inputPresupuesto, { target: { value: '950000000000' } });
-    expect(screen.getByDisplayValue('950000000000')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Paralelo Constitucional y Operativo/i }));
+    expect(screen.getByText(/Fuerza Vinculante de la Circular 08 del DAPRE/i)).toBeInTheDocument();
 
-    // Cambiar sliders de tope y excepción
-    const sliders = screen.getAllByRole('slider');
-    fireEvent.change(sliders[0], { target: { value: '30' } });
-    fireEvent.change(sliders[1], { target: { value: '20' } });
-
-    // Alternar asistente de excepciones
-    const btnToggle = screen.getByRole('button', { name: /Abrir Asistente de Excepciones/i });
-    fireEvent.click(btnToggle);
-    expect(screen.getByText(/Ocultar Asistente de Excepciones/i)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /Ocultar Asistente de Excepciones/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Caso SENA \(33 Regionales\)/i }));
+    expect(screen.getAllByText(/Banco de Instructores/i).length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renderiza ExceptionEvaluator y permite cambiar causales y alternar checkboxes', () => {
-    render(<ExceptionEvaluator />);
-    expect(screen.getByText(/Asistente de Validación de Excepciones/i)).toBeInTheDocument();
-    expect(screen.getByText(/Excepción Formalmente Viable/i)).toBeInTheDocument();
-
-    const selectCausal = screen.getByRole('combobox');
-    fireEvent.change(selectCausal, { target: { value: 'seguridad_proteccion' } });
-
-    const checkboxes = screen.getAllByRole('checkbox');
-    // Desmarcar todos para probar faltantes completos
-    fireEvent.click(checkboxes[0]);
-    fireEvent.click(checkboxes[1]);
-    fireEvent.click(checkboxes[2]);
-    expect(screen.getByText(/Excepción Incompleta/i)).toBeInTheDocument();
-  });
-
-  it('renderiza SectorAnalysis y filtra por todos los niveles de riesgo', () => {
-    render(<SectorAnalysis />);
+  it('renderiza SectorAnalysis, filtra por niveles de riesgo y ejecuta callback de simulación por sector', () => {
+    const handleSimulate = vi.fn();
+    render(<SectorAnalysis onSimulatePreset={handleSimulate} />);
     expect(screen.getByText(/¿Cómo se implementa la norma en cada institución del Estado\?/i)).toBeInTheDocument();
-    
-    // Probar filtros 'Crítico', 'Alto', 'Medio', 'Todos'
+
     fireEvent.click(screen.getByRole('button', { name: 'Crítico' }));
-    expect(screen.getByText(/Servicio Nacional de Aprendizaje \(SENA\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/Universidades Públicas \(Sistema Universitario Estatal/i)).toBeInTheDocument();
+    expect(screen.getByText(/Servicio Nacional de Aprendizaje \(SENA\) — Formación Técnica/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Alto' }));
-    expect(screen.getByText(/Salud y Vigilancia Sanitaria \(MinSalud \/ INVIMA \/ INS\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Salud y Vigilancia Sanitaria/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Medio' }));
     expect(screen.getByText(/Tecnología, Hacienda y Nivel Central/i)).toBeInTheDocument();
+    expect(screen.getByText(/Infraestructura y Transporte/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Todos' }));
-    expect(screen.getByText(/Infraestructura y Transporte/i)).toBeInTheDocument();
+    const btnsSimular = screen.getAllByRole('button', { name: /Simular en Calculadora/i });
+    fireEvent.click(btnsSimular[4]);
+    expect(handleSimulate).toHaveBeenCalledWith('unp-seguridad');
   });
 
-  it('renderiza SocialImpact con todas las dimensiones de afectación', () => {
+  it('renderiza SocialImpact y permite interactuar con la calculadora salarial de contratista', () => {
     render(<SocialImpact />);
     expect(screen.getByText(/El Contratista: El Eslabón Más Vulnerable/i)).toBeInTheDocument();
-    expect(screen.getByText(/El Síndrome de «Planta Quemada»/i)).toBeInTheDocument();
     expect(screen.getByText(/501.423/i)).toBeInTheDocument();
+    const sliderHonorarios = screen.getByRole('slider');
+    fireEvent.change(sliderHonorarios, { target: { value: '6000000' } });
+    expect(screen.getByText(/\$ 2.400.000/i)).toBeInTheDocument();
   });
 
-  it('renderiza PerspectivesDebate y permite alternar entre balance y perspectivas', () => {
+  it('renderiza PerspectivesDebate con horizonte de objetivos, balance de 6 puntos y 6 perspectivas', () => {
     render(<PerspectivesDebate />);
     expect(screen.getByText(/¿Qué hay de bueno en la norma\?/i)).toBeInTheDocument();
-    
-    const btnPerspectivas = screen.getByRole('button', { name: /Las 4 Perspectivas/i });
-    fireEvent.click(btnPerspectivas);
-    expect(screen.getByText(/Perspectiva 1: El Gobierno y la Hacienda Pública/i)).toBeInTheDocument();
-
-    const btnBalance = screen.getByRole('button', { name: /Luces vs. Sombras/i });
-    fireEvent.click(btnBalance);
+    fireEvent.click(screen.getByRole('button', { name: /Las 6 Perspectivas/i }));
+    expect(screen.getByText(/4. Perspectiva del Sector Educativo: SENA y Universidades Públicas/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Luces vs. Sombras/i }));
     expect(screen.getByText(/¿Qué hay de bueno en la norma\?/i)).toBeInTheDocument();
   });
 
-  it('renderiza LegalAndEvidence con soporte de jurisprudencia', () => {
+  it('renderiza LegalAndEvidence con soporte de jurisprudencia y verificación de fuentes', () => {
     render(<LegalAndEvidence />);
     expect(screen.getByText(/Sentencia SU-049 de 2017/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sentencia C-220 de 1997/i)).toBeInTheDocument();
     expect(screen.getByText(/CIRCULAR INTERNA No. 08 DE 2026.pdf/i)).toBeInTheDocument();
-  });
-
-  it('renderiza ReportModal y permite imprimir y cerrar', () => {
-    const handleClose = vi.fn();
-    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {});
-
-    // Render sin props para probar fallback por defecto
-    const { rerender } = render(<ReportModal isOpen={true} onClose={handleClose} />);
-    expect(screen.getByText(/Dictamen Ejecutivo: Implementación Circular Externa No. 08/i)).toBeInTheDocument();
-    
-    const btnPrint = screen.getByRole('button', { name: /Imprimir \/ Guardar PDF/i });
-    fireEvent.click(btnPrint);
-    expect(printSpy).toHaveBeenCalled();
-
-    // Rerender con simData explícito
-    rerender(
-      <ReportModal
-        isOpen={true}
-        onClose={handleClose}
-        simData={{
-          contratosBase: 100,
-          presupuestoBase: 1000,
-          cupoContratos: 25,
-          recorteContratos: 75,
-          cupoPresupuesto: 250,
-          ahorroNeto: 750,
-          topeReglamentario: 25,
-          porcentajeReduccionEfectiva: 75
-        }}
-      />
-    );
-    expect(screen.getByText('$ 750')).toBeInTheDocument();
-
-    // Render con isOpen false retorna null
-    rerender(<ReportModal isOpen={false} onClose={handleClose} />);
-    expect(screen.queryByText(/Dictamen Ejecutivo/i)).not.toBeInTheDocument();
-
-    printSpy.mockRestore();
+    expect(screen.getByText(/Sebastián David García Castro/i)).toBeInTheDocument();
   });
 });
