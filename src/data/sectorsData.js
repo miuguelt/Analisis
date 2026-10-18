@@ -1,0 +1,93 @@
+export const SECTORS_DATA = [
+  {
+    id: "educacion-sena",
+    nombre: "Educación y Formación Técnica (SENA / MinEducación)",
+    icono: "GraduationCap",
+    dependenciaOps: "Crítica (>80 % de instructores)",
+    nivelRiesgo: "Crítico",
+    color: "amber",
+    perfilAfectado: "Instructores técnicos y transversales en centros de formación, diseñadores curriculares, tutores virtuales y personal de soporte pedagógico.",
+    diagnosticoSectorial: "El SENA funciona estructuralmente con contratistas por horas para dictar formación titulada y complementaria. Aplicar un tope del 25 % sin ampliación de planta implicaría cancelar miles de cursos y fichas de formación en todo el país.",
+    desafioPrincipal: "Garantizar la oferta de formación profesional a más de 7 millones de aprendices cuando la planta de instructores de carrera es insuficiente.",
+    viaDeExcepcion: "Causal 2 (Servicios Esenciales de Educación) y Causal 5 (Proyectos de formación con recursos FIC o convenios de destinación específica).",
+    medidasMitigacion: "Concentración en ambientes virtuales masivos, fusión de grupos presenciales y solicitud urgente de ampliación de planta temporal autorizada por Función Pública y MinHacienda."
+  },
+  {
+    id: "inclusion-icbf",
+    nombre: "Inclusión Social y Niñez (ICBF / DPS / Víctimas)",
+    icono: "HeartHandshake",
+    dependenciaOps: "Extrema (>75 % en territorio)",
+    nivelRiesgo: "Crítico",
+    color: "rose",
+    perfilAfectado: "Psicólogos, trabajadores sociales, nutricionistas, agentes educativos de primera infancia y verificadores de entrega de subsidios en zonas rurales.",
+    diagnosticoSectorial: "Las defensorías de familia y centros zonales del ICBF operan con equipos psicosociales contratados por prestación de servicios para el restablecimiento de derechos de menores.",
+    desafioPrincipal: "Riesgo inminente de desatención a niños, niñas y adolescentes bajo protección del Estado y retrasos en atención humanitaria a víctimas del conflicto.",
+    viaDeExcepcion: "Causal 2 (Servicio Esencial de Protección a la Niñez, art. 44 CP) y Causal 1 (Órdenes judiciales de tutela de la Corte Constitucional en sentencias T-025 y T-302).",
+    medidasMitigacion: "Priorización de municipios PDET y ZOMAC, articulación con entidades territoriales y digitalización de trámites de focalización."
+  },
+  {
+    id: "salud-vigilancia",
+    nombre: "Salud y Vigilancia Sanitaria (MinSalud / INVIMA / INS)",
+    icono: "Activity",
+    dependenciaOps: "Muy Alta (60 - 70 %)",
+    nivelRiesgo: "Alto",
+    color: "red",
+    perfilAfectado: "Químicos farmacéuticos, médicos epidemiólogos, inspectores de puertos y aduanas, analistas de registros sanitarios y microbiólogos.",
+    diagnosticoSectorial: "El INVIMA presenta retrasos históricos en trámites de registros sanitarios de medicamentos y alimentos debido a la escasez de personal de planta evaluador. Reducir el 75 % de OPS profundizaría el desabastecimiento.",
+    desafioPrincipal: "Parálisis en aprobación de licencias médicas, insumos vitales e inspección de brotes epidemiológicos en el INS.",
+    viaDeExcepcion: "Causal 2 (Servicios Esenciales de Salud y Salud Pública) y Causal 4 (Atención de emergencias sanitarias o desabastecimiento).",
+    medidasMitigacion: "Ventanilla única digital con inteligencia artificial para pre-validación de requisitos documentales en registros sanitarios."
+  },
+  {
+    id: "seguridad-proteccion",
+    nombre: "Seguridad y Protección (UNP / Migración / MinDefensa)",
+    icono: "ShieldCheck",
+    dependenciaOps: "Alta (50 - 65 % en protección y control)",
+    nivelRiesgo: "Alto",
+    color: "indigo",
+    perfilAfectado: "Oficiales de protección ciudadana, analistas de riesgo de líderes sociales, agentes de control migratorio en aeropuertos y pasos fronterizos.",
+    diagnosticoSectorial: "La Unidad Nacional de Protección (UNP) depende de operadores y contratos de servicios para atender los esquemas de seguridad de personas amenazadas. Migración Colombia tiene alta presión en puestos fronterizos.",
+    desafioPrincipal: "Vulneración de esquemas de protección con responsabilidad patrimonial del Estado por eventuales atentados.",
+    viaDeExcepcion: "Causal 3 (Seguridad y Protección de personas en riesgo) y Causal 1 (Medidas cautelares de la CIDH y órdenes judiciales).",
+    medidasMitigacion: "Estudio exhaustivo de matriz de riesgo individual para retirar esquemas con nivel de riesgo ordinario y movilización de personal de carrera."
+  },
+  {
+    id: "infraestructura-transporte",
+    nombre: "Infraestructura y Transporte (ANI / INVIAS / MinTransporte)",
+    icono: "Truck",
+    dependenciaOps: "Alta (55 - 65 %)",
+    nivelRiesgo: "Medio-Alto",
+    color: "orange",
+    perfilAfectado: "Ingenieros civiles, supervisores de concesiones 4G/5G, peritos de avalúos prediales y abogados especialistas en contratación de obra pública.",
+    diagnosticoSectorial: "La ejecución de proyectos viales y fluviales requiere supervisores técnicos en obra que no existen en la planta básica del INVIAS y la ANI.",
+    desafioPrincipal: "Frenar la supervisión y liquidación de contratos de concesión, retrasando desembolsos y cronogramas de obra pública.",
+    viaDeExcepcion: "Causal 5 (Proyectos con financiación de crédito multilateral o recursos de vigencias futuras con destinación específica).",
+    medidasMitigacion: "Tercerización mediante firmas de interventoría integral y auditorías digitales remotas con drones y telemetría."
+  },
+  {
+    id: "ambiente-tierras",
+    nombre: "Ambiente y Tierras (MinAmbiente / Parques / ANT)",
+    icono: "Trees",
+    dependenciaOps: "Crítica en territorio rural (>70 %)",
+    nivelRiesgo: "Alto",
+    color: "emerald",
+    perfilAfectado: "Topógrafos, guardaparques, peritos catastrales, biólogos, ingenieros ambientales y abogados agrarios en zonas apartadas.",
+    diagnosticoSectorial: "La Agencia Nacional de Tierras (ANT) adelanta la formalización de predios de la reforma agraria con brigadas móviles compuestas casi exclusivamente por contratistas.",
+    desafioPrincipal: "Detener la titulación de predios a campesinos y comunidades étnicas, o suspender el control en parques nacionales frente a deforestación.",
+    viaDeExcepcion: "Causal 1 (Cumplimiento del Acuerdo de Paz, refrendado constitucionalmente) y Causal 5 (Proyectos con cooperación internacional).",
+    medidasMitigacion: "Alianzas con el Instituto Geográfico Agustín Codazzi (IGAC) y catastro multipropósito satelital."
+  },
+  {
+    id: "tic-hacienda",
+    nombre: "Tecnología, Hacienda y Nivel Central (MinTIC / MinHacienda / DAPRE)",
+    icono: "Cpu",
+    dependenciaOps: "Moderada-Alta (45 - 60 %)",
+    nivelRiesgo: "Medio",
+    color: "sky",
+    perfilAfectado: "Arquitectos de software, especialistas en ciberseguridad, analistas de bases de datos, asesores de política económica y analistas de prensa.",
+    diagnosticoSectorial: "Las entidades centrales no tienen cargos de planta con salarios competitivos para desarrolladores o expertos en ciberseguridad, por lo que recurren a honorarios de OPS.",
+    desafioPrincipal: "Fuga de talento técnico hacia el sector privado o internacional, afectando plataformas críticas como el SIIF, SECOP y portales ciudadanos.",
+    viaDeExcepcion: "Causal 6 (Interoperabilidad indispensable y proyectos con banca multilateral como BID o Banco Mundial).",
+    medidasMitigacion: "Contratación de fábricas de software llave en mano bajo Ley 80 en lugar de prestación de servicios individual, y adopción de plataformas de nube compartida."
+  }
+];
